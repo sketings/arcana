@@ -1,9 +1,9 @@
-import { ModulesManager } from './core/modules-manager';
+import { ModulesManager } from './modules-manager';
 
 /**
  * Represents an application using modules
  */
-class Application {
+class ApplicationStatic {
   //Modules Manager of the application
   private _modulesManager: ModulesManager;
 
@@ -16,7 +16,11 @@ class Application {
    * Constructor
    * @param modulesNames Names of the modules to load
    */
-  constructor(modulesNames: Array<string>) {
-    this._modulesManager = new ModulesManager(modulesNames);
+  constructor() {
+    this._modulesManager = new ModulesManager();
   }
+
+  async create() {}
 }
+
+export const ApplicationFactory = new ApplicationStatic();
