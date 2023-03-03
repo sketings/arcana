@@ -1,0 +1,8 @@
+[
+    {
+        "name": "@monModule#",
+        // loadAsConfiguration sera obligatoire pour injecter des choses dans le state avant le démaragge de l'app 
+        "loadAsConfiguration": true,
+        "automaticLoad": true
+    },
+]

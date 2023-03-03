@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "outDir": "./dist/",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict":false,
+    "noImplicitAny": false,
+    "skipLibCheck": true, 
+    "resolveJsonModule": true
+  }
+}
