@@ -1,14 +1,17 @@
-import { AbstractModule } from './abstract/module.abstract';
-import { ModuleConfiguration } from './module-configuration';
+import { IModuleConfig } from './interfaces/module.interface';
 import { ModulesManager } from './modules-manager';
 
 /**
  * Represents the structure of a module
  */
-export class Module implements AbstractModule {
+export class Module {
   //Manager of the module
   private _modulesManager: ModulesManager;
 
+  private _moduleState: Object;
+  public get moduleState(): Object {
+    return this._moduleState;
+  }
   //Name of the module
   private _name: string;
   public get name(): string {
@@ -16,17 +19,17 @@ export class Module implements AbstractModule {
   }
 
   //Configuration of the module
-  private _configuration: ModuleConfiguration;
+  private _configuration: IModuleConfig;
 
   /**
    * Constructor
    * @param modulesManager Parent manager
-   * @param moduleName NAme of the module
+   * @param module NAme of the module
    */
-  constructor(modulesManager: ModulesManager, moduleName: string) {
+  constructor(modulesManager: ModulesManager, module: IModuleConfig) {
     this._modulesManager = modulesManager;
-    this._name = moduleName;
-    this.loadConfiguration();
+    this._name = module.name;
+    this.startModule();
   }
 
   public async stopModule() {}

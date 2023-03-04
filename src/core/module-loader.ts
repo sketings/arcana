@@ -1,8 +1,8 @@
 import resolvePackagePath from 'resolve-package-path';
-import { ModuleConfiguration } from './module-configuration';
+import { IModuleConfig } from './interfaces/module.interface';
 
 export class ModuleLoader {
-  private static moduleConfiguration: ModuleConfiguration;
+  private static moduleConfiguration: IModuleConfig;
 
   public static getModuleConfig() {
     resolvePackagePath(

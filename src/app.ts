@@ -1,6 +1,6 @@
-import { ApplicationFactory } from './core/module-application';
-
+import modules from '../modules.json';
+import { ApplicationFactory } from './core/module-factory';
 async function bootstrap() {
-  const app = await ApplicationFactory.create();
+  const app = await ApplicationFactory.create(modules);
 }
 bootstrap();

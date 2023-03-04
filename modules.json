@@ -1,8 +1,8 @@
 [
     {
-        "name": "@monModule#",
-        // loadAsConfiguration sera obligatoire pour injecter des choses dans le state avant le démaragge de l'app 
+        "name": "mon premier module",
+        "localPath": "F:/Dev/network/core/module-cors/example/module-1",
         "loadAsConfiguration": true,
-        "automaticLoad": true
-    },
+        "version": "0.0.1"
+    }
 ]
