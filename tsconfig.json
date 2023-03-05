@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "ESNext",
-    "moduleResolution": "nodenext",
+    "module": "commonjs",
+    "target": "es2017",
     "outDir": "./dist/",
+    "importHelpers": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict":false,
+    "strict": false,
     "noImplicitAny": false,
-    "skipLibCheck": true, 
+    "skipLibCheck": true,
     "resolveJsonModule": true
   }
 }
