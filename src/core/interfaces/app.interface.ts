@@ -7,4 +7,5 @@ export interface IAppState {
 
 interface IApp {
   modules: Array<IModuleState>;
+  currentLoadLevel: 1 | 2 | 3;
 }

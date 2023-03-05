@@ -1,10 +1,10 @@
 import resolvePackagePath from 'resolve-package-path';
-import { IModuleConfig } from './interfaces/module.interface';
+import { Module } from './module';
 
-export class ModuleLoader {
-  private static moduleConfiguration: IModuleConfig;
+class ModuleLoaderStatic {
+  public loadConfig(module: Module) {}
 
-  public static getModuleConfig() {
+  public static getNpmNodeModulePath() {
     resolvePackagePath(
       'rsvp',
       'base-dir/to/start/the/node_resolution-algorithm-from'
@@ -13,3 +13,5 @@ export class ModuleLoader {
     return findUpPackagePath('base-dir/to/start');
   }
 }
+
+export const ModuleLoader = new ModuleLoaderStatic();

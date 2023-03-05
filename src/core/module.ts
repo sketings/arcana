@@ -1,4 +1,5 @@
 import { IModuleConfig } from './interfaces/module.interface';
+import { ModuleLoader } from './module-loader';
 import { ModulesManager } from './modules-manager';
 
 /**
@@ -7,6 +8,11 @@ import { ModulesManager } from './modules-manager';
 export class Module {
   //Manager of the module
   private _modulesManager: ModulesManager;
+
+  private _moduleConf: IModuleConfig;
+  public get moduleConf(): IModuleConfig {
+    return this._moduleConf;
+  }
 
   private _moduleState: Object;
   public get moduleState(): Object {
@@ -24,11 +30,12 @@ export class Module {
   /**
    * Constructor
    * @param modulesManager Parent manager
-   * @param module NAme of the module
+   * @param moduleConf NAme of the module
    */
-  constructor(modulesManager: ModulesManager, module: IModuleConfig) {
+  constructor(modulesManager: ModulesManager, moduleConf: IModuleConfig) {
     this._modulesManager = modulesManager;
-    this._name = module.name;
+    this._name = moduleConf.name;
+    this._moduleConf = moduleConf;
     this.startModule();
   }
 
@@ -42,6 +49,11 @@ export class Module {
    * Loads the configuration file from the server
    */
   private async loadConfiguration(): Promise<any> {
-    // TODO Load la config du module npm
+    try {
+      await ModuleLoader.loadConfig(this);
+    } catch (e) {
+      console.log(`An error occur while loading module : ${this._name}`);
+      console.log(e);
+    }
   }
 }

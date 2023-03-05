@@ -10,7 +10,7 @@ export interface IModuleParams {
 export interface IModuleConfig {
   name: string;
   version?: string;
-  npmModule: boolean;
+  npmModule?: boolean;
   isolated?: boolean;
   localPath?: string;
   peer?: Array<string>;
@@ -20,4 +20,12 @@ export interface IModuleConfig {
   // 2 second level will be load after level 1
   // 3 second level will be load after level 2 and then the app will start
   loadLevel?: 1 | 2 | 3;
+}
+
+export interface IModuleMessages {
+  name: string;
+  message?: string;
+  cb?: any;
+  uid?: string;
+  createdAt?: Date;
 }

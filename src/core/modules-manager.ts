@@ -16,8 +16,16 @@ export class ModulesManager {
    */
   constructor(modules: Array<IModuleConfig>) {
     this._availableModules = new Map<string, Module>();
+    this.parseModules(modules);
+    console.log('bnsiuffgh');
+  }
 
+  private parseModules(modules: Array<IModuleConfig>) {
     for (const module of modules) {
+      if (this._availableModules.get(module.name)) {
+        throw new Error(`Cannot import module : ${module.name} twice`);
+      }
+
       this._availableModules.set(module.name, new Module(this, module));
     }
   }
@@ -25,7 +33,7 @@ export class ModulesManager {
   /**
    * Gets configuration file for each module and loads their controllers
    */
-  public async loadModules(): Promise<void> {
+  public async loadModulesConfig(): Promise<void> {
     for (const [, module] of this._availableModules) {
       await module.startModule();
     }
