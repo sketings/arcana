@@ -1,13 +1,20 @@
 import { ModuleEvents } from './module-events';
 
-type events = {
-  CreatedPerson: { id: string; name: string };
-  DeletedPerson: { personId: string; reason: string };
-};
-
 const pubSub = ModuleEvents;
 
-pubSub.publish('CreatedPerson', 'helo');
-pubSub.subscribe('CreatedPerson', message => {
+class Test {
+  public init() {
+    console.log("je suis entrain de m'init ");
+  }
+}
+
+pubSub.subscribe('Premiere event', message => {
   console.log(message);
 });
+
+pubSub.subscribe<Test>('Second event', new Test());
+
+// pubSub.publish("Premiere event", 'coucou')
+const test = pubSub.publish('Second event');
+
+console.log(test);

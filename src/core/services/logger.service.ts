@@ -1,23 +1,30 @@
+import { SYSTEM } from '../constant';
+import { ModuleEventsType } from '../events/module-events';
 import { logLevelsEnum } from './logger.enum';
 
 export class Logger {
-  static log(message: string) {
+  log(message: string) {
     this.printMessage(message, logLevelsEnum.LOG);
   }
-  static error(message: string) {
+  error(message: string) {
     this.printMessage(message, logLevelsEnum.ERROR);
   }
-  static warn(message: string) {
+  warn(message: string) {
     this.printMessage(message, logLevelsEnum.WARN);
   }
-  static debug(message: string) {
+  debug(message: string) {
     this.printMessage(message, logLevelsEnum.DEBUG);
   }
-  static verbose(message: string) {
+  verbose(message: string) {
     this.printMessage(message, logLevelsEnum.VERBOSE);
   }
 
-  static printMessage(message: string, color: logLevelsEnum) {
+  printMessage(message: string, color: logLevelsEnum) {
     // TODO: setup a logger
+    console.log(`${message} - ${color}`);
+  }
+
+  static init(event: ModuleEventsType) {
+    event.subscribe(`${SYSTEM.SYSTEM_METHOD}logger`, new this());
   }
 }

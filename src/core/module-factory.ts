@@ -2,6 +2,7 @@ import { ModuleEvents } from './events/module-events';
 import { IAppState } from './interfaces/app.interface';
 import { IModuleConfig } from './interfaces/module.interface';
 import { ModulesManager } from './modules-manager';
+import { Logger } from './services/logger.service';
 
 /**
  * Represents an application using modules
@@ -18,12 +19,16 @@ class ApplicationStatic {
     return this._appState;
   }
 
-  public async create(modules: Array<IModuleConfig>) {
-    this._event.on('cc', () => console.log('cc bg'));
-    this._event.off('cc');
-    console.log(this._event._eventStack);
+  constructor() {
+    this.init();
+  }
 
+  public async create(modules: Array<IModuleConfig>) {
     // this._modulesManager = new ModulesManager(modules);
+  }
+
+  private init() {
+    Logger.init(this._event);
   }
 }
 
