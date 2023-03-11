@@ -1,22 +1,29 @@
 // HELP¨
 // https://github.com/jherr/no-bs-ts/blob/master/series-2/episode-2-pubsub/basic/Subscribable-class.ts
-export class ModuleEventsStatic {
-  private _handlers: Record<string, (...args: any[]) => any> = {};
 
-  public publish(event: string, msg: any) {
-    console.log(this._handlers);
+class ModuleEventsStatic {
+  private _handlers: Record<string, unknown | Function> = {};
 
-    const handlers = this._handlers[event] ?? [];
-    for (const [, handler] of Object.entries(handlers)) {
-      handler(msg);
+  public publish(eventName: string, msg?: any): any {
+    const event = this._handlers[eventName];
+    if (!event) {
+      console.log(`event ${eventName} doesn't exist`);
+      return;
     }
+
+    if (event instanceof Function) {
+      event(msg);
+    }
+
+    return event;
   }
 
-  public subscribe(eventName: string, callback: (...args: any[]) => any) {
+  public subscribe<T>(eventName: string, callback: T | Function) {
     if (this._handlers[eventName]) {
       console.warn(`event ${eventName} already exist`);
       return;
     }
+
     this._handlers[eventName] = callback;
   }
 
@@ -29,4 +36,5 @@ export class ModuleEventsStatic {
   }
 }
 
+export type ModuleEventsType = ModuleEventsStatic;
 export const ModuleEvents = new ModuleEventsStatic();
