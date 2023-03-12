@@ -2,6 +2,7 @@
   "name": "module-cors",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc -p .",
@@ -10,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.15.0",
     "lint-staged": "^13.1.2",
     "nodemon": "^2.0.20",
     "npm": "^9.6.0",
