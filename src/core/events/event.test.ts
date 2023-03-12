@@ -16,5 +16,3 @@ pubSub.subscribe<Test>('Second event', new Test());
 
 // pubSub.publish("Premiere event", 'coucou')
 const test = pubSub.publish('Second event');
-
-console.log(test);

@@ -12,7 +12,7 @@ export interface IModuleConfig {
   version?: string;
   npmModule?: boolean;
   isolated?: boolean;
-  localPath?: string;
+  path?: string;
   peer?: Array<string>;
   author?: string;
   loadAsConfiguration?: boolean;

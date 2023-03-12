@@ -2,6 +2,7 @@
 // https://github.com/jherr/no-bs-ts/blob/master/series-2/episode-2-pubsub/basic/Subscribable-class.ts
 
 class ModuleEventsStatic {
+  // TODO ajouter un system d'event public / private et accessibilité dans certains context
   private _handlers: Record<string, unknown | Function> = {};
 
   public publish(eventName: string, msg?: any): any {
@@ -33,6 +34,19 @@ class ModuleEventsStatic {
       return;
     }
     delete this._handlers[eventName];
+  }
+
+  public broadcast(name: string, eventToTrigger: string, payload?: any) {
+    for (const [eventName, handler] of Object.entries(this._handlers)) {
+      if (eventToTrigger === eventName) {
+        console.log(`${name} has been broadcast`);
+        if (handler instanceof Function) {
+          handler(payload);
+        }
+
+        return handler;
+      }
+    }
   }
 }
 

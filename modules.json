@@ -1,7 +1,7 @@
 [
     {
         "name": "mon premier module",
-        "localPath": "F:/Dev/network/core/module-cors/example/module-1",
+        "path": "F:/Dev/network/core/module-cors/example/module-1",
         "loadAsConfiguration": true,
         "version": "0.0.1"
     }

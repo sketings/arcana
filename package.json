@@ -2,7 +2,7 @@
   "name": "module-cors",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.ts",
   "scripts": {
     "build": "tsc -p .",
     "dev": "nodemon --legacy-watch"
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "install": "^0.13.0",
     "lint-staged": "^13.1.2",
     "nodemon": "^2.0.20",
     "npm": "^9.6.0",
