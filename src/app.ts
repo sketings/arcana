@@ -1,4 +1,5 @@
-import modulesToLoad from '../modules.json';
+import modulesToLoad from '../modules.json' assert { type: 'json' };
+
 import { ApplicationFactory } from './core/module-factory.js';
 
 async function bootstrap() {

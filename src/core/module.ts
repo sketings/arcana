@@ -1,6 +1,6 @@
-import { ModuleEventsType } from './events/module-events';
-import { IModuleConfig } from './interfaces/module.interface';
-import { ModuleLoader, ModuleLoaderType } from './loader/module-loader';
+import { ModuleEventsType } from './events/module-events.js';
+import { IModuleConfig } from './interfaces/module.interface.js';
+import { ModuleLoader, ModuleLoaderType } from './loader/module-loader.js';
 
 /**
  * Represents the structure of a module

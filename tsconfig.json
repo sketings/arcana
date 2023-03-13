@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "ES2020",
     "baseUrl": ".",
-    "target": "ES2020",
+    "module": "nodenext",
+    "target": "ESNext",
     "outDir": "./dist/",
     "importHelpers": true,
     "esModuleInterop": true,
@@ -10,6 +10,6 @@
     "strict": false,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "moduleResolution": "classic"
+    "resolveJsonModule": true
   }
 }

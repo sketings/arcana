@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import resolvePackagePath from 'resolve-package-path';
-import { Module } from '../module';
-import { isLocalConfig } from './module-loader.guard';
+import { Module } from '../module.js';
+import { isLocalConfig } from './module-loader.guard.js';
 
 class ModuleLoaderStatic {
   private readonly initFileName = 'loader';
@@ -33,7 +33,7 @@ class ModuleLoaderStatic {
       `./${this.initFileName}.${this.projectType}`
     );
 
-    const module: any = await import(`${modulePath}`);
+    const module: any = await import(`file://${modulePath}`);
     this.initModule(module);
   }
 

@@ -1,8 +1,8 @@
-import { ModuleEvents, ModuleEventsType } from './events/module-events';
-import { IAppState } from './interfaces/app.interface';
-import { IModuleConfig } from './interfaces/module.interface';
-import { ModulesManager } from './modules-manager';
-import { Logger } from './services/logger.service';
+import { ModuleEvents, ModuleEventsType } from './events/module-events.js';
+import { IAppState } from './interfaces/app.interface.js';
+import { IModuleConfig } from './interfaces/module.interface.js';
+import { ModulesManager } from './modules-manager.js';
+import { Logger } from './services/logger.service.js';
 
 /**
  * Represents an application using modules

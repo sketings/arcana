@@ -1,7 +1,7 @@
-import { ModuleEventsType } from './events/module-events';
-import { IModuleConfig } from './interfaces/module.interface';
-import { ModuleLoader } from './loader/module-loader';
-import { Module } from './module';
+import { ModuleEventsType } from './events/module-events.js';
+import { IModuleConfig } from './interfaces/module.interface.js';
+import { ModuleLoader } from './loader/module-loader.js';
+import { Module } from './module.js';
 
 export class ModulesManager {
   //Array of available modules
