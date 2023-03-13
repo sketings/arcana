@@ -2,5 +2,5 @@
     "verbose": true,
     "ignore": [],
     "watch": ["src/**/*.ts"],
-    "exec": "ts-node ./src/app.ts"
+    "exec": "ts-node-esm ./src/app.ts"
   }

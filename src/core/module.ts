@@ -13,9 +13,9 @@ export class Module {
   //Configuration of the module
   private _moduleConf: IModuleConfig;
 
-  private _moduleState: Object;
+  private _state: Object = {};
 
-  //Name of the module
+  //Name of the module<p
   private _name: string;
 
   /**
@@ -33,14 +33,15 @@ export class Module {
     this._event = events;
     this._moduleLoader = moduleLoader;
     this.init();
+    Object.freeze(this);
   }
 
   public get moduleConf(): IModuleConfig {
     return this._moduleConf;
   }
 
-  public get moduleState(): Object {
-    return this._moduleState;
+  public get state(): Object {
+    return this._state;
   }
 
   public get name(): string {
@@ -51,18 +52,35 @@ export class Module {
     return this._event;
   }
 
+  public addState(stateName: string, valueToAdd: any) {
+    console.log('trigger');
+
+    if (this._state[stateName]) {
+      console.error(`Cannot add state : ${stateName} because it already exist`);
+    } else {
+      this._state[stateName] = valueToAdd;
+    }
+  }
+
+  public removeState(stateToRemove: string) {
+    delete this._state[stateToRemove];
+  }
+
+  public updateState(stateName: string, value: any) {
+    if (this._state[stateName]) {
+      this._state[stateName] = value;
+    } else {
+      console.error(
+        `Cannot update state : ${stateName} because it does not exist`
+      );
+    }
+  }
+
   public async stopModule() {}
 
   public async init(): Promise<void> {
-    await this.loadConf();
-  }
-
-  /**
-   * Loads the configuration file from the server
-   */
-  private async loadConf(): Promise<void> {
     try {
-      await this._moduleLoader.loadConfig(this);
+      this._moduleLoader.loadConfig(this);
     } catch (e) {
       console.log(`An error occur while loading module : ${this._name}`);
       console.log(e);

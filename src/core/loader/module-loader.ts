@@ -60,7 +60,8 @@ class ModuleLoaderStatic {
   private initModule(moduleConstructor: any) {
     try {
       const module = new moduleConstructor.default();
-      module.start();
+
+      module.start(this.module);
     } catch {
       console.log(
         `The module '${this.module.name}' doesn't have a default export`
