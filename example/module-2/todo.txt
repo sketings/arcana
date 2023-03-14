@@ -1,0 +1,3 @@
+- Transformer ceci en module npm
+- Un module sera un projet node a part entière
+- Mettre en place la possibilité de testé simplement
