@@ -1,12 +1,12 @@
 import { ModuleEventsType } from './events/module-events';
 import { IModuleConfig } from './interfaces/module.interface';
-import { ModuleLoader, ModuleLoaderType } from './loader/module-loader';
+import { ModuleLoaderType } from './loader/module-loader';
 
 /**
  * Represents the structure of a module
  */
 export class Module {
-  private readonly _moduleLoader = ModuleLoader;
+  private readonly _moduleLoader: ModuleLoaderType;
 
   private _event: ModuleEventsType;
 
@@ -32,7 +32,6 @@ export class Module {
     this._moduleConf = moduleConf;
     this._event = events;
     this._moduleLoader = moduleLoader;
-    this.init();
     Object.freeze(this);
   }
 
@@ -53,8 +52,6 @@ export class Module {
   }
 
   public addState(stateName: string, valueToAdd: any) {
-    console.log('trigger');
-
     if (this._state[stateName]) {
       console.error(`Cannot add state : ${stateName} because it already exist`);
     } else {
@@ -82,8 +79,8 @@ export class Module {
     try {
       this._moduleLoader.loadConfig(this);
     } catch (e) {
-      console.log(`An error occur while loading module : ${this._name}`);
-      console.log(e);
+      console.error(`An error occur while loading module : ${this._name}`);
+      console.error(e);
     }
   }
 }

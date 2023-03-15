@@ -5,20 +5,30 @@ class ModuleEventsStatic {
   // TODO ajouter un system d'event public / private et accessibilité dans certains context
   private _handlers: Record<string, unknown | Function> = {};
 
+  /**
+   * Resolve an event and return the value of the event
+   * @param eventName Name of the event to resolve
+   * @param msg Message to send to the event
+   */
   public resolve(eventName: string, msg?: any): any {
     const event = this._handlers[eventName];
     if (!event) {
-      console.log(`event ${eventName} doesn't exist`);
+      console.warn(`event ${eventName} doesn't exist`);
       return;
     }
 
     if (event instanceof Function) {
-      event(msg);
+      return event(msg);
     }
 
     return event;
   }
 
+  /**
+   * Subscribe to an event and add a callback to call when the event is triggered
+   * @param eventName Name of the event to subscribe
+   * @param callback Callback to call when the event is triggered
+   */
   public subscribe<T>(eventName: string, callback: T | Function) {
     if (this._handlers[eventName]) {
       console.warn(`event ${eventName} already exist`);
@@ -28,7 +38,11 @@ class ModuleEventsStatic {
     this._handlers[eventName] = callback;
   }
 
-  public unsubscribe(eventName: string, callback: any) {
+  /**
+   * Unsubscribe to an event
+   * @param eventName Name of the event to unsubscribe
+   */
+  public unsubscribe(eventName: string) {
     if (!this._handlers[eventName]) {
       console.warn(`event ${eventName} doesn't exist`);
       return;
@@ -36,17 +50,24 @@ class ModuleEventsStatic {
     delete this._handlers[eventName];
   }
 
-  public broadcast(name: string, eventToTrigger: string, payload?: any) {
-    for (const [eventName, handler] of Object.entries(this._handlers)) {
-      if (eventToTrigger === eventName) {
-        console.log(`${name} has been broadcast`);
-        if (handler instanceof Function) {
-          handler(payload);
-        }
-
-        return handler;
-      }
+  //TODO ajouter un systeme de broadcast public / private et accessibilité dans certains context
+  /**
+   * Broadcast an event to a specific subscriber
+   * @param eventToTrigger Name of the event to trigger
+   * @param payload Payload to send to the event
+   */
+  public broadcast(eventToTrigger: string, payload?: any) {
+    const event = this._handlers[eventToTrigger];
+    if (!event) {
+      console.warn(`event ${eventToTrigger} doesn't exist`);
+      return;
     }
+
+    if (event instanceof Function) {
+      return event(payload);
+    }
+
+    return event;
   }
 }
 
