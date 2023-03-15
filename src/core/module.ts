@@ -1,6 +1,6 @@
-import { ModuleEventsType } from './events/module-events.js';
-import { IModuleConfig } from './interfaces/module.interface.js';
-import { ModuleLoader, ModuleLoaderType } from './loader/module-loader.js';
+import { ModuleEventsType } from './events/module-events';
+import { IModuleConfig } from './interfaces/module.interface';
+import { ModuleLoader, ModuleLoaderType } from './loader/module-loader';
 
 /**
  * Represents the structure of a module
@@ -13,7 +13,7 @@ export class Module {
   //Configuration of the module
   private _moduleConf: IModuleConfig;
 
-  private _state: Object = {};
+  private _state: { [key: string]: any } = {};
 
   //Name of the module<p
   private _name: string;
@@ -40,7 +40,7 @@ export class Module {
     return this._moduleConf;
   }
 
-  public get state(): Object {
+  public get state(): { [key: string]: any } {
     return this._state;
   }
 

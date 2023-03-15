@@ -1,15 +1,33 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "nodenext",
-    "target": "ESNext",
+    "baseUrl": "./",
     "outDir": "./dist/",
-    "importHelpers": true,
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
     "noImplicitAny": false,
+    "strict": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
-  }
+    // Output
+    "module": "CommonJS",
+    "target": "es2017",
+    "importHelpers": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "incremental": true,
+  },
+  "exclude": [
+    "module_examples.json",
+    "examples",
+    ".husky",
+    "node_modules",
+    "coverage",
+    "**/*.spec.ts",
+    "**/*.config.ts",
+    "**/*.config.js",
+  ]
 }

@@ -1,4 +1,4 @@
-import { IModuleState } from './module.interface.js';
+import { IModuleState } from './module.interface';
 
 export interface IAppState {
   state: IApp;

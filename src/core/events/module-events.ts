@@ -5,7 +5,7 @@ class ModuleEventsStatic {
   // TODO ajouter un system d'event public / private et accessibilité dans certains context
   private _handlers: Record<string, unknown | Function> = {};
 
-  public publish(eventName: string, msg?: any): any {
+  public resolve(eventName: string, msg?: any): any {
     const event = this._handlers[eventName];
     if (!event) {
       console.log(`event ${eventName} doesn't exist`);

@@ -1,6 +1,6 @@
-import { SYSTEM } from '../constant.js';
-import { ModuleEventsType } from '../events/module-events.js';
-import { logLevelsEnum } from './logger.enum.js';
+import { SYSTEM } from '../constant';
+import { ModuleEventsType } from '../events/module-events';
+import { logLevelsEnum } from './logger.enum';
 
 export class Logger {
   log(message: string) {

@@ -1,8 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import resolvePackagePath from 'resolve-package-path';
-import { Module } from '../module.js';
-import { isLocalConfig } from './module-loader.guard.js';
+import { Module } from '../module';
+import { isLocalConfig } from './module-loader.guard';
 
 class ModuleLoaderStatic {
   private readonly initFileName = 'loader';
@@ -18,12 +17,12 @@ class ModuleLoaderStatic {
   }
 
   private getNpmNodeModulePath() {
-    resolvePackagePath(
-      'rsvp',
-      'base-dir/to/start/the/node_resolution-algorithm-from'
-    ); // => /path/to/rsvp.json or null
-    const { findUpPackagePath } = resolvePackagePath;
-    return findUpPackagePath('base-dir/to/start');
+    // resolvePackagePath(
+    //   'rsvp',
+    //   'base-dir/to/start/the/node_resolution-algorithm-from'
+    // ); // => /path/to/rsvp.json or null
+    // const { findUpPackagePath } = resolvePackagePath;
+    // return findUpPackagePath('base-dir/to/start');
   }
 
   private async getLocalModulePath() {
@@ -33,7 +32,7 @@ class ModuleLoaderStatic {
       `./${this.initFileName}.${this.projectType}`
     );
 
-    const module: any = await import(`file://${modulePath}`);
+    const module: any = await import(`${modulePath}`);
     this.initModule(module);
   }
 

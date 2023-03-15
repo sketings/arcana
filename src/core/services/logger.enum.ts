@@ -1,4 +1,4 @@
-import { colorsEnum } from '../utils/colors.util.js';
+import { colorsEnum } from '../utils/colors.util';
 
 export enum logLevelsEnum {
   LOG = colorsEnum.GREEN,

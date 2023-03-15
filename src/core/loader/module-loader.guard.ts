@@ -1,4 +1,4 @@
-import { IModuleConfig } from '../interfaces/module.interface.js';
+import { IModuleConfig } from '../interfaces/module.interface';
 
 export function isNpmModule(module: IModuleConfig): boolean {
   return module.npmModule !== undefined;
