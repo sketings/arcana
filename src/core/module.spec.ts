@@ -15,7 +15,7 @@ describe('Module', () => {
   let module: Module;
 
   beforeEach(() => {
-    module = new Module(MODULE_CONF_MOCK, ModuleEvents, ModuleLoader);
+    module = new Module(MODULE_CONF_MOCK, new ModuleEvents(), ModuleLoader);
   });
 
   describe('state', () => {
@@ -66,7 +66,7 @@ describe('Module', () => {
     });
 
     it('should return the module events', () => {
-      expect(module.event).toEqual(ModuleEvents);
+      expect(module.event).toEqual(new ModuleEvents());
     });
   });
 
