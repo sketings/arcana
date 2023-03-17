@@ -8,4 +8,10 @@ export default {
   preset: 'ts-jest',
   rootDir: '.',
   testRegex: '.spec.ts$',
+  testPathIgnorePatterns : [
+    '.*.guard.ts'
+  ],
+  coveragePathIgnorePatterns: [
+    '.*.guard.ts'
+  ]
 };
