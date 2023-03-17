@@ -3,7 +3,8 @@ import modulesToLoad from '../modules.json';
 import { ApplicationFactory } from './core/module-factory';
 
 async function bootstrap() {
-  await ApplicationFactory.init();
-  await ApplicationFactory.create(modulesToLoad);
+  const app = new ApplicationFactory();
+  await app.create(modulesToLoad);
+  await app.init();
 }
 bootstrap();

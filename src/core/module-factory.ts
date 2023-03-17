@@ -7,14 +7,18 @@ import { Logger } from './services/logger.service';
 /**
  * Represents an application using modules
  */
-class ApplicationStatic {
+export class ApplicationFactory {
   //Modules Manager of the application
   private _modulesManager: ModulesManager;
 
-  private _event: ModuleEventsType = ModuleEvents;
+  private readonly _event: ModuleEventsType;
 
   //Will be the global state of the app
   private _appState: IAppState;
+
+  constructor() {
+    this._event = new ModuleEvents();
+  }
 
   public get appState(): Object {
     return this._appState;
@@ -28,5 +32,3 @@ class ApplicationStatic {
     Logger.init(this._event);
   }
 }
-
-export const ApplicationFactory = new ApplicationStatic();

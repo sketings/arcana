@@ -1,7 +1,7 @@
 // HELP¨
 // https://github.com/jherr/no-bs-ts/blob/master/series-2/episode-2-pubsub/basic/Subscribable-class.ts
 
-class ModuleEventsStatic {
+export class ModuleEvents {
   // TODO ajouter un system d'event public / private et accessibilité dans certains context
   private _handlers: Record<string, unknown | Function> = {};
 
@@ -71,5 +71,4 @@ class ModuleEventsStatic {
   }
 }
 
-export type ModuleEventsType = ModuleEventsStatic;
-export const ModuleEvents = new ModuleEventsStatic();
+export type ModuleEventsType = ModuleEvents;
