@@ -1,5 +1,6 @@
 import { SYSTEM } from '../constant';
 import { ModuleEventsType } from '../events/module-events';
+import { Module } from '../module';
 import { logLevelsEnum } from './logger.enum';
 
 export class Logger {
@@ -25,6 +26,8 @@ export class Logger {
   }
 
   static init(event: ModuleEventsType) {
-    event.subscribe(`${SYSTEM.SYSTEM_METHOD}logger`, new this());
+    event.subscribe(`${SYSTEM.SYSTEM_METHOD}:logger`, new this(), {
+      name: SYSTEM.SYSTEM_METHOD
+    } as Module);
   }
 }

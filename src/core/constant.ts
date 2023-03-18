@@ -6,5 +6,5 @@ export const MESSAGES = {
 };
 
 export const SYSTEM = {
-  SYSTEM_METHOD: 'system_'
+  SYSTEM_METHOD: 'system'
 };
