@@ -25,10 +25,12 @@ export class ApplicationFactory {
   }
 
   public async create(modules: Array<IModuleConfig>) {
-    this._modulesManager = new ModulesManager(modules, this._event);
+    this._modulesManager = new ModulesManager(this._event);
+    this._modulesManager.parseModules(modules);
   }
 
   public async init() {
+    this._modulesManager.init(this._event);
     Logger.init(this._event);
   }
 }
