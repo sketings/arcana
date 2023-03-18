@@ -40,8 +40,14 @@ export class ModuleEvents {
     }
   }
 
+  /**
+   *
+   * @param eventName
+   * @param msg
+   */
   private triggerEvent(eventName: string, msg: any) {
     const event = this._handlers[eventName];
+
     if (event.cb instanceof Function) {
       return event.cb(msg);
     }
@@ -57,8 +63,8 @@ export class ModuleEvents {
   public subscribe<T>(
     eventName: string,
     cb: T | Function,
-    isPrivate?: boolean,
-    context?: Module
+    context: Module,
+    isPrivate?: boolean
   ) {
     if (this._handlers[eventName]) {
       console.warn(`event ${eventName} already exist`);
@@ -68,18 +74,24 @@ export class ModuleEvents {
     const handler = {
       cb,
       context,
-      isPrivate
+      isPrivate: !!isPrivate
     };
 
     if (context) {
-      if (context instanceof Module) {
+      if (context.name === 'system' || context instanceof Module) {
         handler.context = context;
       } else {
         console.warn(`event '${eventName}' context is not a module`);
       }
     }
 
-    this._handlers[eventName] = handler;
+    if (eventName.includes(context.name)) {
+      this._handlers[eventName] = handler;
+    } else {
+      console.warn(
+        `event '${eventName}' is not in the correct format : ${context.name}:event `
+      );
+    }
   }
 
   /**
