@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,11 +21,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install --frozen-lockfile
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install --frozen-lockfile
+
     - name: Test the app
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: test
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: test
