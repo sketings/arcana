@@ -1,24 +1,49 @@
-// HELP¨
-// https://github.com/jherr/no-bs-ts/blob/master/series-2/episode-2-pubsub/basic/Subscribable-class.ts
+import { Module } from '../module';
 
 export class ModuleEvents {
-  // TODO ajouter un system d'event public / private et accessibilité dans certains context
-  private _handlers: Record<string, unknown | Function> = {};
+  private _handlers: Record<
+    string,
+    {
+      cb: unknown | Function;
+      context?: Module;
+      isPrivate: boolean;
+    }
+  > = {};
 
   /**
    * Resolve an event and return the value of the event
    * @param eventName Name of the event to resolve
    * @param msg Message to send to the event
    */
-  public resolve(eventName: string, msg?: any): any {
+  public resolve(eventName: string, context?: Module, msg?: any): any {
     const event = this._handlers[eventName];
     if (!event) {
       console.warn(`event ${eventName} doesn't exist`);
       return;
     }
 
-    if (event instanceof Function) {
-      return event(msg);
+    // If event is in the same context as the module that call it
+    // And it is private then we execute it
+    // If it is not in the same context and it is private then we log a warning saying that the event is private
+    // If it is not in the same context and it is public then we execute it
+    if (
+      event.context === context &&
+      context instanceof Module &&
+      event.isPrivate
+    ) {
+      return this.triggerEvent(eventName, msg);
+    } else if (!event.isPrivate) {
+      return this.triggerEvent(eventName, msg);
+    } else {
+      console.warn(`event ${eventName} is private`);
+      return;
+    }
+  }
+
+  private triggerEvent(eventName: string, msg: any) {
+    const event = this._handlers[eventName];
+    if (event.cb instanceof Function) {
+      return event.cb(msg);
     }
 
     return event;
@@ -27,15 +52,34 @@ export class ModuleEvents {
   /**
    * Subscribe to an event and add a callback to call when the event is triggered
    * @param eventName Name of the event to subscribe
-   * @param callback Callback to call when the event is triggered
+   * @param cb Callback to call when the event is triggered
    */
-  public subscribe<T>(eventName: string, callback: T | Function) {
+  public subscribe<T>(
+    eventName: string,
+    cb: T | Function,
+    isPrivate?: boolean,
+    context?: Module
+  ) {
     if (this._handlers[eventName]) {
       console.warn(`event ${eventName} already exist`);
       return;
     }
 
-    this._handlers[eventName] = callback;
+    const handler = {
+      cb,
+      context,
+      isPrivate
+    };
+
+    if (context) {
+      if (context instanceof Module) {
+        handler.context = context;
+      } else {
+        console.warn(`event '${eventName}' context is not a module`);
+      }
+    }
+
+    this._handlers[eventName] = handler;
   }
 
   /**

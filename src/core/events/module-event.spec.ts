@@ -26,8 +26,8 @@ describe('ModuleEventsStatic', () => {
     event.subscribe('eventName', new Test());
     const resolvedEvent = event.resolve('eventName');
     expect(resolvedEvent).toBeDefined();
-    expect(resolvedEvent).toEqual(expect.any(Test));
-    expect(resolvedEvent.test()).toEqual('test');
+    expect(resolvedEvent.cb).toEqual(expect.any(Test));
+    expect(resolvedEvent.cb.test()).toEqual('test');
   });
 
   it('should return an warn when trying to resolve an event that does not exist', () => {

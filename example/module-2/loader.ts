@@ -3,9 +3,11 @@ export default class App {
 
     async start(app: any){
         app.addState('monState', 'Coucou')
-
-        console.log(app);
-
+        app._event.subscribe('module_test_coucou', () => console.log('Hello world'), true, app);
+        const logger = app._event.resolve('system_logger', app);
+        console.log(logger);
+        logger.cb.log('Hello world');
+        
 
         // // Declare a route
         // fastify.get('/', function (request, reply) {
