@@ -93,26 +93,6 @@ export class ModuleEvents {
     }
     delete this._handlers[eventName];
   }
-
-  //TODO ajouter un systeme de broadcast public / private et accessibilité dans certains context
-  /**
-   * Broadcast an event to a specific subscriber
-   * @param eventToTrigger Name of the event to trigger
-   * @param payload Payload to send to the event
-   */
-  public broadcast(eventToTrigger: string, payload?: any) {
-    const event = this._handlers[eventToTrigger];
-    if (!event) {
-      console.warn(`event ${eventToTrigger} doesn't exist`);
-      return;
-    }
-
-    if (event instanceof Function) {
-      return event(payload);
-    }
-
-    return event;
-  }
 }
 
 export type ModuleEventsType = ModuleEvents;

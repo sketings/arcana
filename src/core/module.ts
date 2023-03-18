@@ -15,7 +15,7 @@ export class Module {
 
   private _state: { [key: string]: any } = {};
 
-  //Name of the module<p
+  //Name of the module
   private _name: string;
 
   /**
@@ -59,6 +59,7 @@ export class Module {
     }
   }
 
+  // TODO : Add a check to see if the state exist
   public removeState(stateToRemove: string) {
     delete this._state[stateToRemove];
   }
