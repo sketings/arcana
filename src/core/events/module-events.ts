@@ -85,6 +85,7 @@ export class ModuleEvents {
       }
     }
 
+    // Check if you are in the correct module before subscribing an event
     if (eventName.includes(context.name)) {
       this._handlers[eventName] = handler;
     } else {
