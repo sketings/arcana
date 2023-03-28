@@ -1,10 +1,11 @@
+import { IModuleConfig } from '../../types';
 import { ModuleEventsType } from './events/module-events';
-import { IModuleConfig } from './interfaces/module.interface';
 import { ModuleLoaderType } from './loader/module-loader';
 
 /**
  * Represents the structure of a module
  */
+@Freeze
 export class Module {
   private readonly _moduleLoader: ModuleLoaderType;
 
@@ -32,7 +33,6 @@ export class Module {
     this._moduleConf = moduleConf;
     this._event = events;
     this._moduleLoader = moduleLoader;
-    Object.freeze(this);
   }
 
   public get moduleConf(): IModuleConfig {
@@ -84,4 +84,9 @@ export class Module {
       console.error(e);
     }
   }
+}
+
+function Freeze(constructor: any) {
+  Object.freeze(constructor);
+  Object.freeze(constructor.prototype);
 }

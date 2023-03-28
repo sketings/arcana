@@ -19,6 +19,7 @@
     "declaration": true,
     "resolveJsonModule": true,
     "incremental": true,
+    "experimentalDecorators": true,
   },
   "exclude": [
     "module_examples.json",

@@ -1,6 +1,5 @@
+import { IAppState, IModuleConfig } from '../../types';
 import { ModuleEvents, ModuleEventsType } from './events/module-events';
-import { IAppState } from './interfaces/app.interface';
-import { IModuleConfig } from './interfaces/module.interface';
 import { ModulesManager } from './modules-manager';
 import { Logger } from './services/logger.service';
 

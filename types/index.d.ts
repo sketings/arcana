@@ -1,3 +1,19 @@
+// TODO: add to definitly typed
+// https://levelup.gitconnected.com/publishing-typings-to-definitelytyped-d4e0777e40f5
+
+// #region App
+export interface IAppState {
+  state: IApp;
+  status: 'READY' | 'STARTING' | 'STOPPED';
+}
+
+interface IApp {
+  modules: Array<IModuleState>;
+  currentLoadLevel: 1 | 2 | 3;
+}
+// #endregion  
+
+// #region Module
 export interface IModuleState {
   name: string;
   state: Object;
@@ -29,3 +45,13 @@ export interface IModuleMessages {
   uid?: string;
   createdAt?: Date;
 }
+// #endregion  
+
+// TODO: update this to be more generic
+// #region Module Event
+export { ModuleEventsType } from './src/core/events/module-events';
+// #endregion  
+
+// #region Module Loader
+export { ModuleLoaderType } from './src/core/loader/module-loader';
+// #endregion

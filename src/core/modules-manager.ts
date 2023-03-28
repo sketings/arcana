@@ -1,6 +1,6 @@
+import { IModuleConfig } from '../../types';
 import { SYSTEM } from './constant';
 import { ModuleEventsType } from './events/module-events';
-import { IModuleConfig } from './interfaces/module.interface';
 import { ModuleLoader } from './loader/module-loader';
 import { Module } from './module';
 

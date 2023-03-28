@@ -1,4 +1,4 @@
-import { IModuleConfig } from '../interfaces/module.interface';
+import { IModuleConfig } from 'types';
 
 export function isNpmModule(module: IModuleConfig): boolean {
   return module.npmModule !== undefined;
