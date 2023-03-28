@@ -1,4 +1,5 @@
 import { IModuleConfig } from '../../types';
+import { Freeze } from './decorator/app.decorator';
 import { ModuleEventsType } from './events/module-events';
 import { ModuleLoaderType } from './loader/module-loader';
 
@@ -51,7 +52,23 @@ export class Module {
     return this._event;
   }
 
-  public addState(stateName: string, valueToAdd: any) {
+  public setAppState(stateName: string, value: any) {
+    this._event.resolve('system:app_state_handler', this, {
+      action: 'set',
+      stateName,
+      value,
+      reference: this._name
+    });
+  }
+
+  public getAppState(stateName: string) {
+    return this._event.resolve('system:app_state_handler', this, {
+      action: 'get',
+      stateName
+    });
+  }
+
+  public setState(stateName: string, valueToAdd: any) {
     if (this._state[stateName]) {
       console.error(`Cannot add state : ${stateName} because it already exist`);
     } else {
@@ -84,9 +101,4 @@ export class Module {
       console.error(e);
     }
   }
-}
-
-function Freeze(constructor: any) {
-  Object.freeze(constructor);
-  Object.freeze(constructor.prototype);
 }

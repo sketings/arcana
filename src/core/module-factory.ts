@@ -1,11 +1,15 @@
 import { IAppState, IModuleConfig } from '../../types';
+import { SYSTEM } from './constant';
+import { Freeze } from './decorator/app.decorator';
 import { ModuleEvents, ModuleEventsType } from './events/module-events';
+import { Module } from './module';
 import { ModulesManager } from './modules-manager';
 import { Logger } from './services/logger.service';
 
 /**
  * Represents an application using modules
  */
+@Freeze
 export class ApplicationFactory {
   //Modules Manager of the application
   private _modulesManager: ModulesManager;
@@ -29,7 +33,47 @@ export class ApplicationFactory {
   }
 
   public async init() {
+    this._initAppEvent();
     this._modulesManager.init(this._event);
     Logger.init(this._event);
+  }
+
+  private _initAppEvent() {
+    this._event.subscribe(
+      `${SYSTEM.SYSTEM_METHOD}:app_state_handler`,
+      this._stateActionHandler,
+      {
+        name: SYSTEM.SYSTEM_METHOD
+      } as Module
+    );
+  }
+
+  private _stateActionHandler({
+    action,
+    stateName,
+    value,
+    reference
+  }: {
+    action: string;
+    stateName: string;
+    value?: any;
+    reference?: any;
+  }) {
+    switch (action) {
+      case 'set':
+        if (!this._appState) this._appState = {} as IAppState;
+        this._appState[stateName] = {
+          value,
+          reference
+        };
+        break;
+      case 'get':
+        return this._appState[stateName] ?? null;
+      case 'delete':
+        delete this._appState[stateName];
+        break;
+      default:
+        break;
+    }
   }
 }
