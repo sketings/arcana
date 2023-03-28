@@ -1,8 +1,10 @@
 import { SYSTEM } from '../constant';
+import { Freeze } from '../decorator/app.decorator';
 import { ModuleEventsType } from '../events/module-events';
 import { Module } from '../module';
 import { logLevelsEnum } from './logger.enum';
 
+@Freeze
 export class Logger {
   log(message: string) {
     this.printMessage(message, logLevelsEnum.LOG);

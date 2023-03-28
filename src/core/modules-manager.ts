@@ -1,9 +1,11 @@
 import { IModuleConfig } from '../../types';
 import { SYSTEM } from './constant';
+import { Freeze } from './decorator/app.decorator';
 import { ModuleEventsType } from './events/module-events';
 import { ModuleLoader } from './loader/module-loader';
 import { Module } from './module';
 
+@Freeze
 export class ModulesManager {
   //Available modules
   private _availableModules: Map<string, Module> = new Map<string, Module>();
@@ -26,7 +28,6 @@ export class ModulesManager {
    */
   constructor(events: ModuleEventsType) {
     this._event = events;
-    Object.freeze(this);
   }
 
   /**

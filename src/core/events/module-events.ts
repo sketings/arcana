@@ -1,5 +1,7 @@
+import { Freeze } from '../decorator/app.decorator';
 import { Module } from '../module';
 
+@Freeze
 export class ModuleEvents {
   private _handlers: Record<
     string,

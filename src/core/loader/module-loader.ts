@@ -1,8 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { Freeze } from '../decorator/app.decorator';
 import { Module } from '../module';
 import { isLocalConfig } from './module-loader.guard';
 
+@Freeze
 class ModuleLoaderStatic {
   private readonly initFileName = 'loader';
   private module: Module;
