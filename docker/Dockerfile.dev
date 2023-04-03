@@ -1,8 +1,19 @@
-FROM node:alpine
-WORKDIR /usr/arcana
-COPY package.json .
-RUN npm install\
-&& npm install typescript -g
+# Étape de construction
+FROM node:16-alpine AS builder
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
 COPY . .
-RUN tsc
-CMD ["node", "./dist/src/app.js"]
+
+# Transpile TypeScript en JavaScript
+RUN npm run build
+
+# Étape de production
+FROM node:16-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --only=production
+COPY --from=builder /app/dist ./dist
+
+CMD ["node", "dist/src/app.js"]

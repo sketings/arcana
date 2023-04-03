@@ -22,7 +22,7 @@ export class Logger {
     this.printMessage(message, logLevelsEnum.VERBOSE);
   }
 
-  printMessage(message: string, color: logLevelsEnum) {
+  private printMessage(message: string, color: logLevelsEnum) {
     // TODO: setup a logger
     console.log(`${message} - ${color}`);
   }

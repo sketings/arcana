@@ -1,0 +1,8 @@
+[
+    {
+        "name": "mon_premier_module",
+        "path": "F:/Dev/network/core/arcana/example/module-2",
+        "loadAsConfiguration": true,
+        "version": "0.0.1"
+    }
+]
