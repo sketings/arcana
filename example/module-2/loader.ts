@@ -2,29 +2,48 @@
 export default class App {
 
     async start(app: any){
-        app.addState('monState', 'Coucou')
-        app._event.subscribe('module_test_coucou', () => console.log('Hello world'), true, app);
-        const logger = app._event.resolve('system_logger', app);
-        console.log(logger);
-        logger.cb.log('Hello world');
+        function numberValidator(nb: number){
+            return isNaN(nb);
+        }
+        
+        app.setState('monState', 'Coucou')
+        
+        app._event.subscribe('mon_premier_module:event', () => console.log('Hello world'), app, true);
+        app._event.subscribe('mon_premier_module:event_deux', new Test(), app, true);
+        
+        app._event.subscribe('mon_premier_module:validddd', numberValidator, app, true);
+
+        const { cb } = app._event.resolve('system:module_manager', app);
+        app.setAppState('leStateDeLapp', 'Coucou je suis l application')
+        const appState = app.getAppState('leStateDeLapp')
+        // console.log(appState);
+        const availaible_module = cb.getModulesAvailableName();
+        
+        const cc = app._event.resolve('mon_premier_module:event_deux', app);
+        const ffff = app._event.resolve('mon_premier_module:validddd', app, 'fg');
+        console.log(app._event);
+        console.log(ffff);
+        
+        // console.log(cc.cb.init());
+        
+        
         
 
-        // // Declare a route
-        // fastify.get('/', function (request, reply) {
-        // reply.send({ hello: 'world' })
-        // })
-
-        // // Run the server!
-        // fastify.listen({port: 3000}, function (err, address) {
-        // if (err) {
-        //     fastify.log.error(err)
-        //     process.exit(1)
-        // }
-        // // Server is now listening on ${address}
-        // })
+        // logger.cb.log('Hello world');
+    
     }
 
     async stop(){
         
+    }
+}
+
+class Test {
+    constructor(){
+        console.log('je suis bien');
+    }
+
+    init(){
+        return ":)";
     }
 }
