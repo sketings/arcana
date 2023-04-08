@@ -14,7 +14,7 @@ export default class App {
         const { cb } = app._event.resolve('system:module_manager', app);
         app.setAppState('leStateDeLapp', 'Coucou je suis l application')
         const appState = app.getAppState('leStateDeLapp')
-        // console.log(appState);
+        console.log(appState);
         const availaible_module = cb.getModulesAvailableName();
         
         const cc = app._event.resolve('mon_premier_module:event_deux', app);
