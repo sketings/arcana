@@ -7,10 +7,8 @@ export default class App {
         }
         
         app.setState('monState', 'Coucou')
-        
-        app._event.subscribe('mon_premier_module:event', () => console.log('Hello world'), app, true);
+        app._event.subscribe('mon_premier_module:event', () => console.log('Hello world'), app, false);
         app._event.subscribe('mon_premier_module:event_deux', new Test(), app, true);
-        
         app._event.subscribe('mon_premier_module:validddd', numberValidator, app, true);
 
         const { cb } = app._event.resolve('system:module_manager', app);
@@ -23,12 +21,7 @@ export default class App {
         const ffff = app._event.resolve('mon_premier_module:validddd', app, 'fg');
         console.log(app._event);
         console.log(ffff);
-        
         // console.log(cc.cb.init());
-        
-        
-        
-
         // logger.cb.log('Hello world');
     
     }
