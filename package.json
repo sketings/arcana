@@ -10,12 +10,14 @@
   },
   "scripts": {
     "build": "tsc -p .",
+    "start": "npm run build -- -w",
     "dev": "nodemon --legacy-watch",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "resolve-package-path": "^4.0.3"
+    "dotenv": "^16.0.3",
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
