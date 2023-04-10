@@ -3,14 +3,13 @@
 
 // #region App
 export interface IAppState {
-  state: IApp;
+  state: {
+    [key: string]: any
+  };
   status: 'READY' | 'STARTING' | 'STOPPED';
+  env: 'DEV' | 'PRODUCTION';
 }
 
-interface IApp {
-  modules: Array<IModuleState>;
-  currentLoadLevel: 1 | 2 | 3;
-}
 // #endregion  
 
 // #region Module
@@ -25,10 +24,10 @@ export interface IModuleParams {
 
 export interface IModuleConfig {
   name: string;
+  folderName: string;
   version?: string;
   npmModule?: boolean;
   isolated?: boolean;
-  path?: string;
   peer?: Array<string>;
   author?: string;
   loadAsConfiguration?: boolean;
