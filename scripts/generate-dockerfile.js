@@ -7,7 +7,7 @@ const modules = JSON.parse(fs.readFileSync(modulesFile));
 
 let copyLines = '';
 for (const module of modules) {
-  copyLines += `COPY ${module.path} /app/${module.name}\n`;
+  copyLines += `COPY ./modules/${module.folderName} /app/${module.name}\n`;
 }
 
 // Generate Dockerfile content
@@ -16,21 +16,24 @@ const dockerfileContent = `
 FROM node:16-alpine AS builder
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --production
+ENV ENV PRODUCTION
+
+COPY package.json yarn.lock ./
+RUN cd /app \
+    && yarn install --pure-lockfile
 
 ${copyLines}
 
 COPY . .
 
 # Transpile TypeScript en JavaScript
-RUN npm run build
+RUN yarn build
 
 # Étape de production
 FROM node:16-alpine
 WORKDIR /app
-COPY package*.json ./
-RUN npm install --only=production
+COPY package.json yarn.lock ./
+RUN yarn install --production=true
 COPY --from=builder /app/dist ./dist
 
 CMD ["node", "dist/src/app.js"]
