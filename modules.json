@@ -1,7 +1,13 @@
 [
     {
         "name": "mon_premier_module",
-        "path": "F:/Dev/network/core/arcana/example/module-2",
+        "folderName": "mon_premier_module",
+        "loadAsConfiguration": true,
+        "version": "0.0.1"
+    },
+    {
+        "name": "arcana_fastify",
+        "folderName": "arcana-fastify",
         "loadAsConfiguration": true,
         "version": "0.0.1"
     }
