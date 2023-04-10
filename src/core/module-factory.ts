@@ -61,16 +61,19 @@ export class ApplicationFactory {
   }) {
     switch (action) {
       case 'set':
-        if (!this._appState) this._appState = {} as IAppState;
-        this._appState[stateName] = {
+        if (!this._appState)
+          this._appState = {
+            state: {}
+          } as IAppState;
+        this._appState.state[stateName] = {
           value,
           reference
         };
         break;
       case 'get':
-        return this._appState[stateName] ?? null;
+        return this._appState.state[stateName] ?? null;
       case 'delete':
-        delete this._appState[stateName];
+        delete this._appState.state[stateName];
         break;
       default:
         break;
