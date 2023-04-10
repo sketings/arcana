@@ -1,3 +1,4 @@
+import { IModuleConfig } from '../../types';
 import { ModuleEvents } from './events/module-events';
 import { ModuleLoader } from './loader/module-loader';
 import { Module } from './module';
@@ -7,9 +8,9 @@ const MODULE_CONF_MOCK = {
   version: '1.0.0',
   npmModule: false,
   isolated: false,
-  path: 'test',
+  folderName: 'test',
   peer: []
-};
+} as IModuleConfig;
 
 describe('Module', () => {
   let module: Module;
@@ -20,22 +21,22 @@ describe('Module', () => {
 
   describe('state', () => {
     it('add a state', () => {
-      module.addState('appTest', 'I am a test');
+      module.setState('appTest', 'I am a test');
       expect(typeof module.state.appTest).toBe('string');
       expect(module.state.appTest).toEqual('I am a test');
     });
 
     it('Should console error an error because he is trying to add an existing state', () => {
       console.error = jest.fn();
-      module.addState('appTest', 'I am a test');
-      module.addState('appTest', 'I am a test');
+      module.setState('appTest', 'I am a test');
+      module.setState('appTest', 'I am a test');
       expect(console.error).toHaveBeenCalledWith(
         'Cannot add state : appTest because it already exist'
       );
     });
 
     it('update a state', () => {
-      module.addState('appTest', 'I am a test');
+      module.setState('appTest', 'I am a test');
       module.updateState('appTest', 'I am a new test');
       expect(typeof module.state.appTest).toBe('string');
       expect(module.state.appTest).toEqual('I am a new test');
@@ -50,7 +51,7 @@ describe('Module', () => {
     });
 
     it('remove a state', () => {
-      module.addState('appTest', 'I am a test');
+      module.setState('appTest', 'I am a test');
       module.removeState('appTest');
       expect(module.state.appTest).toBeUndefined();
     });
