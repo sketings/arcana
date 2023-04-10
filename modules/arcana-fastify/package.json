@@ -1,0 +1,15 @@
+{
+  "name": "@arcana/fastify",
+  "version": "1.0.0",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.15.10",
+    "arcana-cors-types": "^0.0.1",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "fastify": "^4.15.0"
+  }
+}
