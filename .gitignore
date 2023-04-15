@@ -4,5 +4,8 @@ node_modules
 dist/
 *.sample.ts
 
+Dockerfile
+docker-compose.yml
+
 .idea
 .vscode
