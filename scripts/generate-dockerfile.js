@@ -5,38 +5,48 @@ const path = require('path');
 const modulesFile = path.join(__dirname, '../modules.json');
 const modules = JSON.parse(fs.readFileSync(modulesFile));
 
-let copyLines = '';
+let moduleToCopy = '';
+let modulePackageJsonToCopy = '';
+let commandToRun = '';
 for (const module of modules) {
-  copyLines += `COPY ./modules/${module.folderName} /app/${module.name}\n`;
+  moduleToCopy += `COPY ./modules/${module.folderName} /app/modules/${module.folderName}\n`;
+  modulePackageJsonToCopy += `COPY ./modules/${module.folderName}/package.json  /app/dist/modules/${module.folderName}/\n`;
+  commandToRun += `RUN yarn --cwd /app/dist/modules/${module.folderName} install --pure-lockfile --production=true \n`;
 }
 
 // Generate Dockerfile content
 const dockerfileContent = `
-# Étape de construction
+# Build construction
 FROM node:16-alpine AS builder
 WORKDIR /app
 
+# Set environment variables
 ENV ENV PRODUCTION
 
+# Install dependencies
 COPY package.json yarn.lock ./
-RUN cd /app \
-    && yarn install --pure-lockfile
-
-${copyLines}
-
 COPY . .
+RUN yarn --cwd /app/dist install --pure-lockfile\n
+
+# Copy modules
+${moduleToCopy}
 
 # Transpile TypeScript en JavaScript
 RUN yarn build
 
-# Étape de production
-FROM node:16-alpine
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --production=true
-COPY --from=builder /app/dist ./dist
+# Install dependencies
+COPY package.json yarn.lock ./dist/
+RUN yarn --cwd /app/dist install --pure-lockfile --production=true \n
+
+# Copy package.json for each module
+${modulePackageJsonToCopy}
+
+# Install dependencies
+${commandToRun}
 
 CMD ["node", "dist/src/app.js"]
+# CMD sleep infinity
+
 `;
 
 // Write Dockerfile
