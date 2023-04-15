@@ -44,7 +44,19 @@ ${modulePackageJsonToCopy}
 # Install dependencies
 ${commandToRun}
 
-CMD ["node", "dist/src/app.js"]
+# Copy the contents of the folder to keep in a temp directory
+RUN mkdir /arcana_tmp && cp -R dist /arcana_tmp
+
+# Delete all files and folders, except for the dist folder
+RUN find . -mindepth 1 -not -name 'dist' -delete
+
+# Move the contents of the folder to keep to the original directory
+RUN cp -R /arcana_tmp/dist/* . && rm -rf /arcana_tmp
+
+# Delete the dist folder
+RUN rm -rf dist/
+
+CMD ["node", "src/app.js"]
 # CMD sleep infinity
 
 `;
