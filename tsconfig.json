@@ -20,11 +20,6 @@
     "resolveJsonModule": true,
     "incremental": true,
     "experimentalDecorators": true,
-    "paths": {
-      "@submodule1/*": ["./modules/arcana-fastify/*"],
-      "@submodule2/*": ["./modules/mon_premier_module/*"],
-      // ...
-    }
   },
   "exclude": [
     "module_examples.json",
