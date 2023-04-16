@@ -25,11 +25,9 @@ export interface IModuleParams {
 export interface IModuleConfig {
   name: string;
   folderName: string;
-  version?: string;
-  npmModule?: boolean;
+  port?: number;
   isolated?: boolean;
   peer?: Array<string>;
-  author?: string;
   loadAsConfiguration?: boolean;
   // 1 first level will be loaded before everything
   // 2 second level will be load after level 1
