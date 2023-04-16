@@ -13,7 +13,7 @@ let isolatedService = '';
 const escapeNumber = 6;
 
 for (const module of modules) {
-  const tempModuleVolume = `- ./integration/nginx/${module.name}.conf:/etc/nginx/conf.d/${module.name}.conf \n`;
+  const tempModuleVolume = `- ./integration/nginx/modules/${module.name}.conf:/etc/nginx/conf.d/${module.name}.conf \n`;
   moduleVolume += ' '.repeat(escapeNumber) + tempModuleVolume;
   if(module.port){
     const tempModulePort = `- "${module.port}:${module.port}" \n`;
