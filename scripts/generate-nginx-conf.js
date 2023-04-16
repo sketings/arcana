@@ -11,11 +11,11 @@ const modules = JSON.parse(fs.readFileSync(modulesFile));
 // ou on laisse tout sur le même domaine (ex: app.arcana) et on change le port
 // De plus il faudrait donner la possiblité de customiser l'url de l'api sur tout pour le cas de la production
 for (const module of modules) {
-  let test = '';
+  let proxyPass = '';
   if (module.isolated) {
-    test = `http://${module.name}:${module.port ?? 80}}`;
+    proxyPass = `http://${module.name}:${module.port ?? 80}`;
   } else {
-    test = `http://app:${module.port ?? 80}}`;
+    proxyPass = `http://app:${module.port ?? 80}`;
   }
 
   if(!module.port){
@@ -33,7 +33,7 @@ for (const module of modules) {
     # mettre le nom de domaine d'api'
     server_name app.arcana www.app.arcana;
     location / {
-        proxy_pass 
+        proxy_pass ${proxyPass};
     }
 }
 `; 
