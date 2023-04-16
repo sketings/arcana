@@ -68,6 +68,20 @@ ${linkApp}
     environment:
      - ENV=PRODUCTION
 ${isolatedService}
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - redis:/data
+      
+volumes:
+  redis:
+    driver: local
+
 `;
 
 // Write Docker compose file
