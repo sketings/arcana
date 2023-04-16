@@ -6,6 +6,6 @@ dist/
 
 Dockerfile
 docker-compose.yml
-
+integration/nginx/modules
 .idea
 .vscode
