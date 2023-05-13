@@ -3,14 +3,13 @@
 
 // #region App
 export interface IAppState {
-  state: IApp;
+  state: {
+    [key: string]: any
+  };
   status: 'READY' | 'STARTING' | 'STOPPED';
+  env: 'DEV' | 'PRODUCTION';
 }
 
-interface IApp {
-  modules: Array<IModuleState>;
-  currentLoadLevel: 1 | 2 | 3;
-}
 // #endregion  
 
 // #region Module
@@ -25,12 +24,10 @@ export interface IModuleParams {
 
 export interface IModuleConfig {
   name: string;
-  version?: string;
-  npmModule?: boolean;
+  folderName: string;
+  port?: number;
   isolated?: boolean;
-  path?: string;
   peer?: Array<string>;
-  author?: string;
   loadAsConfiguration?: boolean;
   // 1 first level will be loaded before everything
   // 2 second level will be load after level 1

@@ -15,9 +15,9 @@ export class ModuleEvents {
   /**
    * Resolve an event and return the value of the event
    * @param eventName Name of the event to resolve
-   * @param msg Message to send to the event
+   * @param payload Message to send to the event
    */
-  public resolve(eventName: string, context?: Module, msg?: any): any {
+  public resolve(eventName: string, context?: Module, payload?: any): any {
     const event = this._handlers[eventName];
     if (!event) {
       console.warn(`event ${eventName} doesn't exist`);
@@ -33,9 +33,9 @@ export class ModuleEvents {
       context instanceof Module &&
       event.isPrivate
     ) {
-      return this.triggerEvent(eventName, msg);
+      return this.triggerEvent(eventName, payload);
     } else if (!event.isPrivate) {
-      return this.triggerEvent(eventName, msg);
+      return this.triggerEvent(eventName, payload);
     } else {
       console.warn(`event ${eventName} is private`);
       return;
@@ -47,11 +47,11 @@ export class ModuleEvents {
    * @param eventName
    * @param msg
    */
-  private triggerEvent(eventName: string, msg: any) {
+  private triggerEvent(eventName: string, payload: any) {
     const event = this._handlers[eventName];
 
     if (event.cb instanceof Function) {
-      return event.cb(msg);
+      return event.cb(payload);
     }
 
     return event;

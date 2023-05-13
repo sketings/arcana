@@ -5,7 +5,7 @@ import { Module } from '../module';
 import { logLevelsEnum } from './logger.enum';
 
 @Freeze
-export class Logger {
+export class LoggerService {
   log(message: string) {
     this.printMessage(message, logLevelsEnum.LOG);
   }
@@ -22,7 +22,7 @@ export class Logger {
     this.printMessage(message, logLevelsEnum.VERBOSE);
   }
 
-  printMessage(message: string, color: logLevelsEnum) {
+  private printMessage(message: string, color: logLevelsEnum) {
     // TODO: setup a logger
     console.log(`${message} - ${color}`);
   }

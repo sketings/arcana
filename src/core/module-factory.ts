@@ -4,7 +4,7 @@ import { Freeze } from './decorator/app.decorator';
 import { ModuleEvents, ModuleEventsType } from './events/module-events';
 import { Module } from './module';
 import { ModulesManager } from './modules-manager';
-import { Logger } from './services/logger.service';
+import { LoggerService } from './services/logger.service';
 
 /**
  * Represents an application using modules
@@ -35,7 +35,7 @@ export class ApplicationFactory {
   public async init() {
     this._initAppEvent();
     this._modulesManager.init(this._event);
-    Logger.init(this._event);
+    LoggerService.init(this._event);
   }
 
   private _initAppEvent() {
@@ -61,16 +61,19 @@ export class ApplicationFactory {
   }) {
     switch (action) {
       case 'set':
-        if (!this._appState) this._appState = {} as IAppState;
-        this._appState[stateName] = {
+        if (!this._appState)
+          this._appState = {
+            state: {}
+          } as IAppState;
+        this._appState.state[stateName] = {
           value,
           reference
         };
         break;
       case 'get':
-        return this._appState[stateName] ?? null;
+        return this._appState.state[stateName] ?? null;
       case 'delete':
-        delete this._appState[stateName];
+        delete this._appState.state[stateName];
         break;
       default:
         break;

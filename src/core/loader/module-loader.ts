@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Freeze } from '../decorator/app.decorator';
 import { Module } from '../module';
-import { isLocalConfig } from './module-loader.guard';
 
 @Freeze
 class ModuleLoaderStatic {
@@ -10,39 +9,40 @@ class ModuleLoaderStatic {
   private module: Module;
   private projectType: ModuleProjectType;
 
-  public loadConfig(module: Module) {
+  public loadConfig(module: Module): void {
     this.module = module;
-    isLocalConfig(this.module.moduleConf)
-      ? this.getLocalModulePath()
-      : this.getNpmNodeModulePath();
+    this.getLocalModulePath();
     return;
   }
 
-  private getNpmNodeModulePath() {
-    // resolvePackagePath(
-    //   'rsvp',
-    //   'base-dir/to/start/the/node_resolution-algorithm-from'
-    // ); // => /path/to/rsvp.json or null
-    // const { findUpPackagePath } = resolvePackagePath;
-    // return findUpPackagePath('base-dir/to/start');
-  }
-
-  private async getLocalModulePath() {
-    this.readFolder(this.module.moduleConf.path);
+  private async getLocalModulePath(): Promise<void> {
+    this.readFolder();
     if (!this.projectType) {
       return;
     }
+
+    if (process.env.ENV === 'PRODUCTION') {
+      this.projectType = ModuleProjectType.JS;
+    } else {
+      this.projectType = ModuleProjectType.TS;
+    }
+
     const modulePath = path.resolve(
-      this.module.moduleConf.path,
-      `./${this.initFileName}.${this.projectType}`
+      __dirname,
+      `../../../modules/${this.module.moduleConf.folderName}/${this.initFileName}.${this.projectType}`
     );
 
     const module: any = await import(`${modulePath}`);
     this.initModule(module);
   }
 
-  private readFolder(modulePath): void {
-    fs.readdirSync(modulePath).forEach(file => {
+  private readFolder(): void {
+    fs.readdirSync(
+      path.resolve(
+        __dirname,
+        `../../../modules/${this.module.moduleConf.folderName}`
+      )
+    ).forEach(file => {
       const files = file.split('.');
       if (
         files[files.length - 1] === ModuleProjectType.TS &&
@@ -54,10 +54,9 @@ class ModuleLoaderStatic {
     });
   }
 
-  private initModule(moduleConstructor: any) {
+  private initModule(moduleConstructor: any): void {
     try {
       const module = new moduleConstructor.default();
-
       module.start(this.module);
     } catch {
       console.log(
@@ -68,7 +67,8 @@ class ModuleLoaderStatic {
 }
 
 enum ModuleProjectType {
-  TS = 'ts'
+  TS = 'ts',
+  JS = 'js'
 }
 export type ModuleLoaderType = ModuleLoaderStatic;
 export const ModuleLoader = new ModuleLoaderStatic();

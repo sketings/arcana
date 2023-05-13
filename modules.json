@@ -1,0 +1,15 @@
+[
+    {
+        "name": "mon_premier_module",
+        "folderName": "mon_premier_module",
+        "loadAsConfiguration": true,
+        "version": "0.0.1"
+    },
+    {
+        "name": "arcana_fastify",
+        "folderName": "arcana-fastify",
+        "port": 3000,
+        "loadAsConfiguration": true,
+        "version": "0.0.1"
+    }
+]

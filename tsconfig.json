@@ -23,12 +23,11 @@
   },
   "exclude": [
     "module_examples.json",
-    "examples",
+    "example",
     ".husky",
-    "node_modules",
     "coverage",
     "**/*.spec.ts",
     "**/*.config.ts",
     "**/*.config.js",
-  ]
+  ],
 }
