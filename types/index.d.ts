@@ -1,6 +1,3 @@
-// TODO: add to definitly typed
-// https://levelup.gitconnected.com/publishing-typings-to-definitelytyped-d4e0777e40f5
-
 // #region App
 export interface IAppState {
   state: {
@@ -33,6 +30,8 @@ export interface IModuleConfig {
   isolated?: boolean;
   // peer is a list of modules that will depend on this module and be loaded with it
   peers?: Array<IModuleConfig>;
+  // If set true the module will be loaded before all other modules
+  loadAsConfig?: boolean; 
 }
 
 export interface IModuleMessages {

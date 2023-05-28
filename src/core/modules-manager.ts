@@ -31,11 +31,13 @@ export class ModulesManager {
   }
 
   /**
+   * TODO: map all modules and then init them
    * Parse and create the modules to load
    * @param modules Array of modules to parse
    */
   public parseModules(modules: Array<IModuleConfig>) {
-    for (const module of modules) {
+    const sortedModules = this.sortModules(modules);
+    for (const module of sortedModules) {
       if (this._availableModules.get(module.name)) {
         throw new Error(`Cannot import module : ${module.name} twice`);
       }
@@ -66,15 +68,36 @@ export class ModulesManager {
   }
 
   /**
+   * Sort the modules to load by loadAsConfig property
+   * @param modules Array of modules to sort
+   */
+  private sortModules(modules: Array<IModuleConfig>): Array<IModuleConfig> {
+    return modules.sort((a, b) => {
+      if (a.loadAsConfig && !b.loadAsConfig) {
+        return -1;
+      }
+
+      if (!a.loadAsConfig && b.loadAsConfig) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
+  /**
    * Init a module
    * @param moduleName Name of the module to init
    */
   private initModule(moduleName: string): void {
     const module = this._availableModules.get(moduleName);
-    module.init();
+    module.initModule();
   }
 
-  // Check if the module name match the snake_case pattern
+  /**
+   * Check if the module name match the snake_case pattern
+   * @param module Module to check
+   */
   private checkModuleName(module: IModuleConfig): void {
     if (!module.name.match(/^[a-z]+(?:_[a-z]+)*$/)) {
       throw new Error(
