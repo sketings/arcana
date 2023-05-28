@@ -1,15 +1,18 @@
 [
-    {
-        "name": "mon_premier_module",
-        "folderName": "mon_premier_module",
-        "loadAsConfiguration": true,
-        "version": "0.0.1",
-        "peers": [{
-            "name": "arcana_fastify",
-            "folderName": "arcana-fastify",
-            "port": 3001,
-            "loadAsConfiguration": true,
-            "version": "0.0.1"
-        }]
-    }
+  {
+    "name": "config_module",
+    "folderName": "mon_premier_module",
+    "loadAsConfig": true
+  },
+  {
+    "name": "mon_premier_module",
+    "folderName": "mon_premier_module",
+    "peers": [
+      {
+        "name": "arcana_fastify",
+        "folderName": "arcana-fastify",
+        "port": 3001
+      }
+    ]
+  }
 ]
