@@ -8,6 +8,8 @@ import { ModuleLoaderType } from './loader/module-loader';
  */
 @Freeze
 export class Module {
+  public isLoaded: boolean = false;
+
   private readonly _moduleLoader: ModuleLoaderType;
 
   private _event: ModuleEventsType;
@@ -93,9 +95,9 @@ export class Module {
 
   public async stopModule() {}
 
-  public async init(): Promise<void> {
+  public async init(module?: this): Promise<void> {
     try {
-      this._moduleLoader.loadConfig(this);
+      this._moduleLoader.loadConfig(module ? module : this);
     } catch (e) {
       console.error(`An error occur while loading module : ${this._name}`);
       console.error(e);

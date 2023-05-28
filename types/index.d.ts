@@ -23,16 +23,16 @@ export interface IModuleParams {
 }
 
 export interface IModuleConfig {
+  // Name of the module
   name: string;
+  // Name of the folder that the module is located in
   folderName: string;
+  // The port that the module will be exposed on
   port?: number;
+  // If set true the module will be isolated from the rest of the app
   isolated?: boolean;
-  peer?: Array<string>;
-  loadAsConfiguration?: boolean;
-  // 1 first level will be loaded before everything
-  // 2 second level will be load after level 1
-  // 3 second level will be load after level 2 and then the app will start
-  loadLevel?: 1 | 2 | 3;
+  // peer is a list of modules that will depend on this module and be loaded with it
+  peers?: Array<IModuleConfig>;
 }
 
 export interface IModuleMessages {

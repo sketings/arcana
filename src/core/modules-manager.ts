@@ -41,18 +41,27 @@ export class ModulesManager {
       }
 
       // Check if the module name match the snake_case pattern
-      if (!module.name.match(/^[a-z]+(?:_[a-z]+)*$/)) {
-        throw new Error(
-          `Cannot import module : ${module.name} with an invalid name (we only accept snake_case)`
-        );
-      }
+      this.checkModuleName(module);
 
       this._availableModules.set(
         module.name,
         new Module(module, this._event, this.moduleLoader)
       );
 
+      // Init module
       this.initModule(module.name);
+
+      //Init peers modules
+      if (module.peers) {
+        for (const modulePeer of module.peers) {
+          this.checkModuleName(module);
+          this._availableModules.set(
+            modulePeer.name,
+            new Module(modulePeer, this._event, this.moduleLoader)
+          );
+          this.initModule(modulePeer.name);
+        }
+      }
     }
   }
 
@@ -63,6 +72,15 @@ export class ModulesManager {
   private initModule(moduleName: string): void {
     const module = this._availableModules.get(moduleName);
     module.init();
+  }
+
+  // Check if the module name match the snake_case pattern
+  private checkModuleName(module: IModuleConfig): void {
+    if (!module.name.match(/^[a-z]+(?:_[a-z]+)*$/)) {
+      throw new Error(
+        `Cannot import module : ${module.name} with an invalid name (we only accept snake_case)`
+      );
+    }
   }
 
   /**

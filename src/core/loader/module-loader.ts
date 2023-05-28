@@ -21,6 +21,7 @@ class ModuleLoaderStatic {
       return;
     }
 
+    // TODO: remove this when we will have a build system
     if (process.env.ENV === 'PRODUCTION') {
       this.projectType = ModuleProjectType.JS;
     } else {
