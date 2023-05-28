@@ -3,20 +3,19 @@ import * as path from 'path';
 import { Freeze } from '../decorator/app.decorator';
 import { Module } from '../module';
 
+const initFileName = 'loader';
 @Freeze
 class ModuleLoaderStatic {
-  private readonly initFileName = 'loader';
-  private module: Module;
   private projectType: ModuleProjectType;
 
   public loadConfig(module: Module): void {
-    this.module = module;
-    this.getLocalModulePath();
+    this.getLocalModulePath(module);
     return;
   }
 
-  private async getLocalModulePath(): Promise<void> {
-    this.readFolder();
+  // TODO: add possibility to stop module
+  private async getLocalModulePath(module: Module): Promise<void> {
+    this.readFolder(module);
     if (!this.projectType) {
       return;
     }
@@ -30,24 +29,24 @@ class ModuleLoaderStatic {
 
     const modulePath = path.resolve(
       __dirname,
-      `../../../modules/${this.module.moduleConf.folderName}/${this.initFileName}.${this.projectType}`
+      `../../../modules/${module.moduleConf.folderName}/${initFileName}.${this.projectType}`
     );
 
-    const module: any = await import(`${modulePath}`);
-    this.initModule(module);
+    const moduleToImport: any = await import(`${modulePath}`);
+    this.initModule(moduleToImport, module);
   }
 
-  private readFolder(): void {
+  private readFolder(module: Module): void {
     fs.readdirSync(
       path.resolve(
         __dirname,
-        `../../../modules/${this.module.moduleConf.folderName}`
+        `../../../modules/${module.moduleConf.folderName}`
       )
     ).forEach(file => {
       const files = file.split('.');
       if (
         files[files.length - 1] === ModuleProjectType.TS &&
-        files[0] === `${this.initFileName}`
+        files[0] === `${initFileName}`
       ) {
         this.projectType = ModuleProjectType.TS;
         return;
@@ -55,14 +54,12 @@ class ModuleLoaderStatic {
     });
   }
 
-  private initModule(moduleConstructor: any): void {
+  private initModule(moduleConstructor: any, module: Module): void {
     try {
-      const module = new moduleConstructor.default();
-      module.start(this.module);
+      const moduleToLoad = new moduleConstructor.default();
+      moduleToLoad.start(module);
     } catch {
-      console.log(
-        `The module '${this.module.name}' doesn't have a default export`
-      );
+      console.log(`The module '${module.name}' doesn't have a default export`);
     }
   }
 }

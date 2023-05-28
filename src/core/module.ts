@@ -8,8 +8,6 @@ import { ModuleLoaderType } from './loader/module-loader';
  */
 @Freeze
 export class Module {
-  public isLoaded: boolean = false;
-
   private readonly _moduleLoader: ModuleLoaderType;
 
   private _event: ModuleEventsType;
@@ -93,9 +91,7 @@ export class Module {
     }
   }
 
-  public async stopModule() {}
-
-  public async init(module?: this): Promise<void> {
+  public initModule(module?: this): void {
     try {
       this._moduleLoader.loadConfig(module ? module : this);
     } catch (e) {
